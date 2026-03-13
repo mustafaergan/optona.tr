@@ -1,0 +1,71 @@
+"use client";
+
+import Link from "next/link";
+import { useState } from "react";
+
+const navLinks = [
+  { href: "/", label: "Ana Sayfa" },
+  { href: "/hizmetler", label: "Hizmetler" },
+  { href: "/hakkimizda", label: "Hakkımızda" },
+  { href: "/iletisim", label: "İletişim" },
+];
+
+export default function Navbar() {
+  const [menuOpen, setMenuOpen] = useState(false);
+
+  return (
+    <header className="sticky top-0 z-50 bg-white shadow-sm">
+      <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4">
+        <Link href="/" className="text-2xl font-bold text-blue-700 tracking-tight">
+          Optona
+        </Link>
+
+        {/* Desktop nav */}
+        <nav className="hidden md:flex items-center gap-8">
+          {navLinks.map((link) => (
+            <Link
+              key={link.href}
+              href={link.href}
+              className="text-gray-700 hover:text-blue-700 font-medium transition-colors"
+            >
+              {link.label}
+            </Link>
+          ))}
+          <Link
+            href="/iletisim"
+            className="rounded-lg bg-blue-700 px-5 py-2 text-white font-semibold hover:bg-blue-800 transition-colors"
+          >
+            Bize Ulaşın
+          </Link>
+        </nav>
+
+        {/* Mobile hamburger */}
+        <button
+          className="md:hidden flex flex-col gap-1.5 p-2"
+          onClick={() => setMenuOpen(!menuOpen)}
+          aria-label="Menüyü aç"
+        >
+          <span className={`block h-0.5 w-6 bg-gray-700 transition-transform ${menuOpen ? "rotate-45 translate-y-2" : ""}`} />
+          <span className={`block h-0.5 w-6 bg-gray-700 transition-opacity ${menuOpen ? "opacity-0" : ""}`} />
+          <span className={`block h-0.5 w-6 bg-gray-700 transition-transform ${menuOpen ? "-rotate-45 -translate-y-2" : ""}`} />
+        </button>
+      </div>
+
+      {/* Mobile menu */}
+      {menuOpen && (
+        <div className="md:hidden bg-white border-t px-6 pb-4">
+          {navLinks.map((link) => (
+            <Link
+              key={link.href}
+              href={link.href}
+              className="block py-2 text-gray-700 hover:text-blue-700 font-medium"
+              onClick={() => setMenuOpen(false)}
+            >
+              {link.label}
+            </Link>
+          ))}
+        </div>
+      )}
+    </header>
+  );
+}
