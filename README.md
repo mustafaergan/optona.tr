@@ -1,36 +1,31 @@
-# optona.tr
-Optona Türkiye resmi reposu
+# 🤖 Optona Türkiye (optona.tr)
 
-## Optona Web Sitesi
+**Optona Türkiye**, yapay zeka destekli akıllı asistanlar, modern yazılım çözümleri ve veri analitiği üzerine odaklanmış dijital bir inisiyatiftir. Bu depo, Optona Türkiye'nin resmi web sitesinin kaynak kodlarını içermektedir.
 
-Bu proje, [Next.js](https://nextjs.org) ile oluşturulmuş Optona'nın resmi web sitesidir.
+## 🌐 Canlı Önizleme
+Siteyi yerel ortamınızda `index.html` dosyasını tarayıcı ile açarak veya bir yerel sunucu kullanarak görüntüleyebilirsiniz.
 
-## Başlarken
+## ✨ Temel Özellikler
+- **Modern Tasarım:** Koyu tema ağırlıklı, şık ve profesyonel arayüz.
+- **Dinamik Bileşenler:** JavaScript ile güçlendirilmiş interaktif öğeler ve scroll animasyonları.
+- **Tam Duyarlı (Responsive):** Mobil, tablet ve masaüstü cihazlar için %100 uyumlu.
+- **Hızlı Performans:** Hafif kod yapısı ve optimize edilmiş varlıklar.
 
-Geliştirme sunucusunu başlatmak için:
+## 🛠 Kullanılan Teknolojiler
+- **HTML5:** Yapısal içerik.
+- **CSS3:** Modern grid ve flexbox düzeni, özel animasyonlar.
+- **JavaScript (Vanilla):** Dinamik etkileşimler.
+- **FontAwesome:** Profesyonel ikon seti.
 
-```bash
-npm run dev
-```
+## 📂 Proje Yapısı
+- `index.html`: Ana web sayfası.
+- `style.css`: Tüm görsel tasarımlar ve animasyonlar.
+- `script.js`: Dinamik özellikler ve etkileşim mantığı.
 
-Tarayıcıda [http://localhost:3000](http://localhost:3000) adresini açın.
+## 📧 İletişim
+Sorularınız ve iş birliği talepleriniz için bize ulaşabilirsiniz:
+- **E-posta:** hilal.elmss@gmail.com
+- **Web:** [www.optona.tr](http://www.optona.tr)
 
-## Sayfalar
-
-- `/` – Ana Sayfa
-- `/hizmetler` – Hizmetler
-- `/hakkimizda` – Hakkımızda
-- `/iletisim` – İletişim
-
-## Teknolojiler
-
-- [Next.js 16](https://nextjs.org) – React framework
-- [TypeScript](https://www.typescriptlang.org) – Tip güvenliği
-- [Tailwind CSS](https://tailwindcss.com) – Stil
-
-## Build
-
-```bash
-npm run build
-npm run start
-```
+---
+*© 2026 Optona Türkiye. Mustafa Ergan tarafından dijital geleceği inşa etmek için tasarlanmıştır.*
