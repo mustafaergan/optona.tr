@@ -24,7 +24,7 @@ Siteyi yerel ortamınızda `index.html` dosyasını tarayıcı ile açarak veya 
 
 ## 📧 İletişim
 Sorularınız ve iş birliği talepleriniz için bize ulaşabilirsiniz:
-- **E-posta:** hilal.elmss@gmail.com
+- **E-posta:** ai.optona@gmail.com
 - **Web:** [www.optona.tr](http://www.optona.tr)
 
 ---
