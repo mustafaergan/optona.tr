@@ -1,0 +1,5 @@
+User-Agent: *
+Allow: /
+
+Host: https://optona.tr
+Sitemap: https://optona.tr/sitemap.xml

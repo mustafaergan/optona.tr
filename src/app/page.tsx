@@ -1,10 +1,51 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import PageCta from "@/components/sections/PageCta";
 import { homeServices, homeStats } from "@/lib/site-data";
 
+export const metadata: Metadata = {
+  title: "Dijital Donusumunuzun Guvenilir Ortagi",
+  description:
+    "Optona ile web, mobil, bulut ve veri odakli cozumlerle dijital donusum surecinizi hizlandirin.",
+  alternates: {
+    canonical: "/",
+  },
+  openGraph: {
+    title: "Optona | Dijital Donusumunuzun Guvenilir Ortagi",
+    description:
+      "Optona ile web, mobil, bulut ve veri odakli cozumlerle dijital donusum surecinizi hizlandirin.",
+    url: "https://optona.tr/",
+    type: "website",
+  },
+};
+
 export default function HomePage() {
+  const organizationSchema = {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    name: "Optona",
+    url: "https://optona.tr",
+    email: "info@optona.tr",
+    sameAs: ["https://optona.tr"],
+  };
+
+  const webSiteSchema = {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    name: "Optona",
+    url: "https://optona.tr",
+    inLanguage: "tr-TR",
+  };
+
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify([organizationSchema, webSiteSchema]),
+        }}
+      />
+
       {/* Hero Section */}
       <section className="relative bg-gradient-to-br from-blue-700 via-blue-600 to-indigo-700 text-white overflow-hidden">
         <div className="absolute inset-0 opacity-10">
