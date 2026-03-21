@@ -186,7 +186,7 @@ export default function CaseStudiesPage() {
             Projenizi hayata geçirmek ve ölçülebilir sonuçlar elde etmek için bizimle iletişime geçin.
           </p>
           <Link
-            href="/iletisim"
+            href="/contact"
             className="mt-8 inline-block rounded-xl bg-white px-8 py-3.5 text-blue-700 font-bold text-lg hover:bg-blue-50 transition-colors shadow-lg"
           >
             Projenizi Konuşalım
@@ -196,3 +196,4 @@ export default function CaseStudiesPage() {
     </>
   );
 }
+

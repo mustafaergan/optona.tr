@@ -136,7 +136,7 @@ export default function IndustriesPage() {
             Sektörünüze en uygun dijital stratejiyi birlikte belirleyelim.
           </p>
           <Link
-            href="/iletisim"
+            href="/contact"
             className="mt-8 inline-block rounded-xl bg-white px-8 py-3.5 text-blue-700 font-bold text-lg hover:bg-blue-50 transition-colors shadow-lg"
           >
             Uzmanla Görüş
@@ -146,3 +146,4 @@ export default function IndustriesPage() {
     </>
   );
 }
+
