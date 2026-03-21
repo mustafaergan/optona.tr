@@ -1,31 +1,54 @@
-# 🤖 Optona Türkiye (optona.tr)
+# Optona Türkiye (optona.tr)
 
-**Optona Türkiye**, yapay zeka destekli akıllı asistanlar, modern yazılım çözümleri ve veri analitiği üzerine odaklanmış dijital bir inisiyatiftir. Bu depo, Optona Türkiye'nin resmi web sitesinin kaynak kodlarını içermektedir.
+Optona Türkiye web sitesi Next.js (App Router) ile gelistirilmistir.
 
-## 🌐 Canlı Önizleme
-Siteyi yerel ortamınızda `index.html` dosyasını tarayıcı ile açarak veya bir yerel sunucu kullanarak görüntüleyebilirsiniz.
+## Kurulum
+1. Node.js 20+ kurulu oldugundan emin olun.
+2. Bagimliliklari yukleyin:
 
-## ✨ Temel Özellikler
-- **Modern Tasarım:** Koyu tema ağırlıklı, şık ve profesyonel arayüz.
-- **Dinamik Bileşenler:** JavaScript ile güçlendirilmiş interaktif öğeler ve scroll animasyonları.
-- **Tam Duyarlı (Responsive):** Mobil, tablet ve masaüstü cihazlar için %100 uyumlu.
-- **Hızlı Performans:** Hafif kod yapısı ve optimize edilmiş varlıklar.
+```bash
+npm install
+```
 
-## 🛠 Kullanılan Teknolojiler
-- **HTML5:** Yapısal içerik.
-- **CSS3:** Modern grid ve flexbox düzeni, özel animasyonlar.
-- **JavaScript (Vanilla):** Dinamik etkileşimler.
-- **FontAwesome:** Profesyonel ikon seti.
+## Gelistirme
 
-## 📂 Proje Yapısı
-- `index.html`: Ana web sayfası.
-- `style.css`: Tüm görsel tasarımlar ve animasyonlar.
-- `script.js`: Dinamik özellikler ve etkileşim mantığı.
+```bash
+npm run dev
+```
 
-## 📧 İletişim
-Sorularınız ve iş birliği talepleriniz için bize ulaşabilirsiniz:
-- **E-posta:** ai.optona@gmail.com
-- **Web:** [www.optona.tr](http://www.optona.tr)
+Uygulama varsayilan olarak `http://localhost:3000` adresinde calisir.
 
----
-*© 2026 Optona Türkiye. Mustafa Ergan tarafından dijital geleceği inşa etmek için tasarlanmıştır.*
+## Uretim
+
+```bash
+npm run build
+npm run start
+```
+
+## Lint
+
+```bash
+npm run lint
+```
+
+## Kullanilan Teknolojiler
+- Next.js 16 (App Router)
+- React 19
+- TypeScript
+- Tailwind CSS 4
+
+## Proje Yapisi
+- `src/app/layout.tsx`: Koku layout.
+- `src/app/page.tsx`: Ana sayfa (`/`).
+- `src/app/services/page.tsx`: Hizmetler (`/services`).
+- `src/app/solutions/page.tsx`: Cozumler (`/solutions`).
+- `src/app/industries/page.tsx`: Sektorler (`/industries`).
+- `src/app/success-stories/page.tsx`: Basari hikayeleri (`/success-stories`).
+- `src/app/about/page.tsx`: Hakkimizda (`/about`).
+- `src/app/contact/page.tsx`: Iletisim (`/contact`).
+- `src/components/*`: Ortak UI ve layout bilesenleri.
+- `src/lib/site-data.ts`: Sayfa icerikleri ve link verileri.
+
+## Notlar
+- Eski statik dosya yapisi (`index.html`, `style.css`, `script.js`) kaldirilmistir.
+- Eski Turkce URL'ler `next.config.ts` icindeki redirect kurallariyla yeni İngilizce route'lara yonlendirilir.

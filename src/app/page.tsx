@@ -1,50 +1,6 @@
 import Link from "next/link";
-
-const services = [
-  {
-    icon: "💻",
-    title: "Web Geliştirme",
-    description:
-      "Modern, hızlı ve responsive web siteleri ile web uygulamaları geliştiriyoruz.",
-  },
-  {
-    icon: "📱",
-    title: "Mobil Uygulama",
-    description:
-      "iOS ve Android platformları için kullanıcı dostu mobil uygulamalar tasarlıyoruz.",
-  },
-  {
-    icon: "☁️",
-    title: "Bulut Çözümleri",
-    description:
-      "İşletmenizin ihtiyaçlarına uygun güvenli ve ölçeklenebilir bulut altyapısı kuruyoruz.",
-  },
-  {
-    icon: "🔒",
-    title: "Siber Güvenlik",
-    description:
-      "Dijital varlıklarınızı korumak için kapsamlı siber güvenlik hizmetleri sunuyoruz.",
-  },
-  {
-    icon: "📊",
-    title: "Veri Analitiği",
-    description:
-      "Verilerinizi değerli içgörülere dönüştürerek iş kararlarınızı güçlendiriyoruz.",
-  },
-  {
-    icon: "🤖",
-    title: "Yapay Zeka",
-    description:
-      "İş süreçlerinizi otomatikleştirmek için yapay zeka çözümleri geliştiriyoruz.",
-  },
-];
-
-const stats = [
-  { value: "100+", label: "Tamamlanan Proje" },
-  { value: "50+", label: "Mutlu Müşteri" },
-  { value: "10+", label: "Yıllık Deneyim" },
-  { value: "24/7", label: "Teknik Destek" },
-];
+import PageCta from "@/components/sections/PageCta";
+import { homeServices, homeStats } from "@/lib/site-data";
 
 export default function HomePage() {
   return (
@@ -67,13 +23,13 @@ export default function HomePage() {
           </p>
           <div className="mt-10 flex flex-col sm:flex-row items-center justify-center gap-4">
             <Link
-              href="/hizmetler"
+              href="/services"
               className="rounded-xl bg-white px-8 py-3.5 text-blue-700 font-bold text-lg hover:bg-blue-50 transition-colors shadow-lg"
             >
               Hizmetlerimiz
             </Link>
             <Link
-              href="/iletisim"
+              href="/contact"
               className="rounded-xl border-2 border-white px-8 py-3.5 text-white font-bold text-lg hover:bg-white/10 transition-colors"
             >
               Ücretsiz Danışmanlık
@@ -86,7 +42,7 @@ export default function HomePage() {
       <section className="bg-white border-b">
         <div className="mx-auto max-w-7xl px-6 py-14">
           <div className="grid grid-cols-2 gap-8 md:grid-cols-4">
-            {stats.map((stat) => (
+            {homeStats.map((stat) => (
               <div key={stat.label} className="text-center">
                 <div className="text-4xl font-extrabold text-blue-700">{stat.value}</div>
                 <div className="mt-1 text-sm text-gray-500 font-medium">{stat.label}</div>
@@ -109,7 +65,7 @@ export default function HomePage() {
             </p>
           </div>
           <div className="mt-14 grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
-            {services.map((service) => (
+            {homeServices.map((service) => (
               <div
                 key={service.title}
                 className="rounded-2xl bg-white p-8 shadow-sm hover:shadow-md transition-shadow border border-gray-100"
@@ -122,7 +78,7 @@ export default function HomePage() {
           </div>
           <div className="mt-12 text-center">
             <Link
-              href="/hizmetler"
+              href="/services"
               className="inline-block rounded-xl bg-blue-700 px-8 py-3.5 text-white font-semibold hover:bg-blue-800 transition-colors"
             >
               Tüm Hizmetleri Gör
@@ -158,7 +114,7 @@ export default function HomePage() {
                 ))}
               </ul>
               <Link
-                href="/hakkimizda"
+                href="/about"
                 className="mt-8 inline-block rounded-xl bg-blue-700 px-6 py-3 text-white font-semibold hover:bg-blue-800 transition-colors"
               >
                 Hakkımızda Daha Fazla
@@ -176,23 +132,12 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* CTA Section */}
-      <section className="bg-blue-700 py-16">
-        <div className="mx-auto max-w-4xl px-6 text-center text-white">
-          <h2 className="text-3xl font-extrabold md:text-4xl">
-            Projenizi Birlikte Hayata Geçirelim
-          </h2>
-          <p className="mt-4 text-lg text-blue-100">
-            Ücretsiz danışmanlık için bizimle iletişime geçin.
-          </p>
-          <Link
-            href="/iletisim"
-            className="mt-8 inline-block rounded-xl bg-white px-8 py-3.5 text-blue-700 font-bold text-lg hover:bg-blue-50 transition-colors shadow-lg"
-          >
-            Hemen İletişime Geçin
-          </Link>
-        </div>
-      </section>
+      <PageCta
+        title="Projenizi Birlikte Hayata Geçirelim"
+        description="Ücretsiz danışmanlık için bizimle iletişime geçin."
+        buttonLabel="Hemen İletişime Geçin"
+      />
     </>
   );
 }
+

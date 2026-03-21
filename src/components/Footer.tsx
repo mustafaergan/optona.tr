@@ -1,11 +1,5 @@
 import Link from "next/link";
-
-const footerLinks = [
-  { href: "/", label: "Ana Sayfa" },
-  { href: "/hizmetler", label: "Hizmetler" },
-  { href: "/hakkimizda", label: "Hakkımızda" },
-  { href: "/iletisim", label: "İletişim" },
-];
+import { footerLinks } from "@/lib/site-data";
 
 export default function Footer() {
   return (

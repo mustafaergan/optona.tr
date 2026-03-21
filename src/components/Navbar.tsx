@@ -2,16 +2,7 @@
 
 import Link from "next/link";
 import { useState } from "react";
-
-const navLinks = [
-  { href: "/", label: "Ana Sayfa" },
-  { href: "/hizmetler", label: "Hizmetler" },
-  { href: "/cozumler", label: "Çözümler" },
-  { href: "/sektorler", label: "Sektörler" },
-  { href: "/basari-hikayeleri", label: "Başarı Hikayeleri" },
-  { href: "/hakkimizda", label: "Hakkımızda" },
-  { href: "/iletisim", label: "İletişim" },
-];
+import { navLinks } from "@/lib/site-data";
 
 export default function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -35,7 +26,7 @@ export default function Navbar() {
             </Link>
           ))}
           <Link
-            href="/iletisim"
+            href="/contact"
             className="rounded-lg bg-blue-700 px-5 py-2 text-white font-semibold hover:bg-blue-800 transition-colors"
           >
             Bize Ulaşın
@@ -72,3 +63,4 @@ export default function Navbar() {
     </header>
   );
 }
+
