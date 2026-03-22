@@ -8,7 +8,7 @@ import {
   useState,
   type ReactNode,
 } from "react";
-import siteDictionary from "@/locales/site.json";
+import siteDictionary from "@/locales/messages.json";
 
 export type Language = "tr" | "en" | "de";
 
