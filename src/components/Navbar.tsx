@@ -2,10 +2,22 @@
 
 import Link from "next/link";
 import { useState } from "react";
-import { navLinks } from "@/lib/site-data";
+import LanguageSwitcher from "@/components/LanguageSwitcher";
+import { useLanguage } from "@/components/providers/LanguageProvider";
 
 export default function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
+  const { dictionary } = useLanguage();
+
+  const navLinks = [
+    { href: "/", label: dictionary.common.nav.home },
+    { href: "/services", label: dictionary.common.nav.services },
+    { href: "/solutions", label: dictionary.common.nav.solutions },
+    { href: "/industries", label: dictionary.common.nav.industries },
+    { href: "/success-stories", label: dictionary.common.nav.successStories },
+    { href: "/about", label: dictionary.common.nav.about },
+    { href: "/contact", label: dictionary.common.nav.contact },
+  ];
 
   return (
     <header className="sticky top-0 z-50 bg-white shadow-sm">
@@ -29,8 +41,9 @@ export default function Navbar() {
             href="/contact"
             className="rounded-lg bg-blue-700 px-5 py-2 text-white font-semibold hover:bg-blue-800 transition-colors"
           >
-            Bize Ulaşın
+            {dictionary.common.contactCta}
           </Link>
+          <LanguageSwitcher />
         </nav>
 
         {/* Mobile hamburger */}
@@ -48,6 +61,9 @@ export default function Navbar() {
       {/* Mobile menu */}
       {menuOpen && (
         <div className="md:hidden bg-white border-t px-6 pb-4">
+          <div className="py-3">
+            <LanguageSwitcher />
+          </div>
           {navLinks.map((link) => (
             <Link
               key={link.href}
