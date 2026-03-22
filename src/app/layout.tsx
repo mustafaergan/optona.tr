@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import LanguageProvider from "@/components/providers/LanguageProvider";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://optona.tr"),
@@ -60,9 +61,11 @@ export default function RootLayout({
   return (
     <html lang="tr">
       <body className="antialiased">
-        <Navbar />
-        <main>{children}</main>
-        <Footer />
+        <LanguageProvider>
+          <Navbar />
+          <main>{children}</main>
+          <Footer />
+        </LanguageProvider>
       </body>
     </html>
   );

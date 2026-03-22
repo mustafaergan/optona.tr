@@ -1,7 +1,20 @@
+"use client";
+
 import Link from "next/link";
-import { footerLinks } from "@/lib/site-data";
+import { useLanguage } from "@/components/providers/LanguageProvider";
 
 export default function Footer() {
+  const { dictionary } = useLanguage();
+
+  const footerLinks = [
+    { href: "/", label: dictionary.common.nav.home },
+    { href: "/services", label: dictionary.common.nav.services },
+    { href: "/solutions", label: dictionary.common.nav.solutions },
+    { href: "/industries", label: dictionary.common.nav.industries },
+    { href: "/about", label: dictionary.common.nav.about },
+    { href: "/contact", label: dictionary.common.nav.contact },
+  ];
+
   return (
     <footer className="bg-gray-900 text-gray-300">
       <div className="mx-auto max-w-7xl px-6 py-12">
@@ -12,14 +25,14 @@ export default function Footer() {
               Optona
             </Link>
             <p className="mt-3 text-sm text-gray-400">
-              İşletmenizi dijital dünyada büyütmek için yenilikçi çözümler sunuyoruz.
+              {dictionary.common.footer.brandDescription}
             </p>
           </div>
 
           {/* Links */}
           <div>
             <h3 className="text-sm font-semibold uppercase tracking-wider text-gray-400">
-              Sayfalar
+              {dictionary.common.footer.pagesTitle}
             </h3>
             <ul className="mt-4 space-y-2">
               {footerLinks.map((link) => (
@@ -38,7 +51,7 @@ export default function Footer() {
           {/* Contact */}
           <div>
             <h3 className="text-sm font-semibold uppercase tracking-wider text-gray-400">
-              İletişim
+              {dictionary.common.footer.contactTitle}
             </h3>
             <ul className="mt-4 space-y-2 text-sm text-gray-300">
               <li>
@@ -46,13 +59,13 @@ export default function Footer() {
                   info@optona.tr
                 </a>
               </li>
-              <li>Türkiye</li>
+              <li>{dictionary.common.footer.country}</li>
             </ul>
           </div>
         </div>
 
         <div className="mt-8 border-t border-gray-800 pt-8 text-center text-sm text-gray-500">
-          © {new Date().getFullYear()} Optona. Tüm hakları saklıdır.
+          © {new Date().getFullYear()} Optona. {dictionary.common.footer.copyright}
         </div>
       </div>
     </footer>
