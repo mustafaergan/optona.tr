@@ -7,20 +7,20 @@ import LanguageProvider from "@/components/providers/LanguageProvider";
 export const metadata: Metadata = {
   metadataBase: new URL("https://optona.tr"),
   title: {
-    default: "Optona | Dijital Donusum ve Yazilim Cozumleri",
+    default: "Optona | Dijital Dönüşüm ve Yazılım Çözümleri",
     template: "%s | Optona",
   },
   description:
-    "Optona, isletmenizi dijital dunyada buyutmek icin yenilikci yazilim, bulut ve teknoloji cozumleri sunar.",
+    "Optona, işletmenizi dijital dünyada büyütmek için yenilikçi yazılım, bulut ve teknoloji çözümleri sunar.",
   applicationName: "Optona",
   keywords: [
-    "dijital donusum",
-    "yazilim gelistirme",
+    "dijital dönüşüm",
+    "yazılım geliştirme",
     "next.js",
     "mobil uygulama",
-    "bulut cozumleri",
-    "siber guvenlik",
-    "veri analitigi",
+    "bulut çözümleri",
+    "siber güvenlik",
+    "veri analitiği",
   ],
   alternates: {
     canonical: "/",
@@ -30,15 +30,15 @@ export const metadata: Metadata = {
     locale: "tr_TR",
     url: "https://optona.tr",
     siteName: "Optona",
-    title: "Optona | Dijital Donusum ve Yazilim Cozumleri",
+    title: "Optona | Dijital Dönüşüm ve Yazılım Çözümleri",
     description:
-      "Optona, isletmenizi dijital dunyada buyutmek icin yenilikci yazilim, bulut ve teknoloji cozumleri sunar.",
+      "Optona, işletmenizi dijital dünyada büyütmek için yenilikçi yazılım, bulut ve teknoloji çözümleri sunar.",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Optona | Dijital Donusum ve Yazilim Cozumleri",
+    title: "Optona | Dijital Dönüşüm ve Yazılım Çözümleri",
     description:
-      "Optona, isletmenizi dijital dunyada buyutmek icin yenilikci yazilim, bulut ve teknoloji cozumleri sunar.",
+      "Optona, işletmenizi dijital dünyada büyütmek için yenilikçi yazılım, bulut ve teknoloji çözümleri sunar.",
   },
   robots: {
     index: true,
