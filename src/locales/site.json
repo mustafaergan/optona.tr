@@ -80,9 +80,9 @@
         "description": "Deneyimli ve tutkulu profesyonellerden olusan ekibimiz sizin icin calisiyor.",
         "members": [
           { "name": "Mustafa ERGAN", "role": "Kurucu & CEO" },
-          { "name": "Mustafa Yildirim", "role": "CTO" },
-          { "name": "Ibrahim Efe Pural", "role": "Bas Tasarimci" },
-          { "name": "Madhukar Wynn", "role": "Urun Muduru" }
+          { "name": "Mustafa Yıldırım", "role": "CTO" },
+          { "name": "İbrahim Efe Pural", "role": "Baş Tasarımcı" },
+          { "name": "Madhukar Wynn", "role": "Ürün Müdürü" }
         ]
       },
       "cta": {
