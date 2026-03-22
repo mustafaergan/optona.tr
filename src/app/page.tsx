@@ -1,21 +1,14 @@
 import type { Metadata } from "next";
 import HomePageContent from "@/components/pages/HomePageContent";
+import { createPageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = createPageMetadata({
   title: "Dijital Dönüşümünüzün Güvenilir Ortağı",
   description:
     "Optona ile web, mobil, bulut ve veri odaklı çözümlerle dijital dönüşüm sürecinizi hızlandırın.",
-  alternates: {
-    canonical: "/",
-  },
-  openGraph: {
-    title: "Optona | Dijital Dönüşümünüzün Güvenilir Ortağı",
-    description:
-      "Optona ile web, mobil, bulut ve veri odaklı çözümlerle dijital dönüşüm sürecinizi hızlandırın.",
-    url: "https://optona.tr/",
-    type: "website",
-  },
-};
+  path: "/",
+  keywords: ["dijital dönüşüm", "yazılım çözümleri", "web ve mobil geliştirme"],
+});
 
 export default function HomePage() {
   return <HomePageContent />;

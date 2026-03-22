@@ -1,50 +1,65 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
 <url>
 <loc>https://optona.tr</loc>
-<lastmod>2026-03-22T00:18:09.816Z</lastmod>
+<xhtml:link rel="alternate" hreflang="tr-TR" href="https://optona.tr?lang=tr" />
+<xhtml:link rel="alternate" hreflang="en-US" href="https://optona.tr?lang=en" />
+<xhtml:link rel="alternate" hreflang="de-DE" href="https://optona.tr?lang=de" />
+<lastmod>2026-03-22T00:24:36.400Z</lastmod>
 <changefreq>weekly</changefreq>
 <priority>1</priority>
 </url>
 <url>
-<loc>https://optona.tr/index</loc>
-<lastmod>2026-03-22T00:18:09.816Z</lastmod>
-<changefreq>weekly</changefreq>
-<priority>0.8</priority>
-</url>
-<url>
 <loc>https://optona.tr/services</loc>
-<lastmod>2026-03-22T00:18:09.816Z</lastmod>
+<xhtml:link rel="alternate" hreflang="tr-TR" href="https://optona.tr/services?lang=tr" />
+<xhtml:link rel="alternate" hreflang="en-US" href="https://optona.tr/services?lang=en" />
+<xhtml:link rel="alternate" hreflang="de-DE" href="https://optona.tr/services?lang=de" />
+<lastmod>2026-03-22T00:24:36.400Z</lastmod>
 <changefreq>weekly</changefreq>
 <priority>0.8</priority>
 </url>
 <url>
 <loc>https://optona.tr/solutions</loc>
-<lastmod>2026-03-22T00:18:09.816Z</lastmod>
+<xhtml:link rel="alternate" hreflang="tr-TR" href="https://optona.tr/solutions?lang=tr" />
+<xhtml:link rel="alternate" hreflang="en-US" href="https://optona.tr/solutions?lang=en" />
+<xhtml:link rel="alternate" hreflang="de-DE" href="https://optona.tr/solutions?lang=de" />
+<lastmod>2026-03-22T00:24:36.400Z</lastmod>
 <changefreq>weekly</changefreq>
 <priority>0.8</priority>
 </url>
 <url>
 <loc>https://optona.tr/industries</loc>
-<lastmod>2026-03-22T00:18:09.816Z</lastmod>
+<xhtml:link rel="alternate" hreflang="tr-TR" href="https://optona.tr/industries?lang=tr" />
+<xhtml:link rel="alternate" hreflang="en-US" href="https://optona.tr/industries?lang=en" />
+<xhtml:link rel="alternate" hreflang="de-DE" href="https://optona.tr/industries?lang=de" />
+<lastmod>2026-03-22T00:24:36.400Z</lastmod>
 <changefreq>weekly</changefreq>
 <priority>0.8</priority>
 </url>
 <url>
 <loc>https://optona.tr/success-stories</loc>
-<lastmod>2026-03-22T00:18:09.816Z</lastmod>
+<xhtml:link rel="alternate" hreflang="tr-TR" href="https://optona.tr/success-stories?lang=tr" />
+<xhtml:link rel="alternate" hreflang="en-US" href="https://optona.tr/success-stories?lang=en" />
+<xhtml:link rel="alternate" hreflang="de-DE" href="https://optona.tr/success-stories?lang=de" />
+<lastmod>2026-03-22T00:24:36.400Z</lastmod>
 <changefreq>weekly</changefreq>
 <priority>0.8</priority>
 </url>
 <url>
 <loc>https://optona.tr/about</loc>
-<lastmod>2026-03-22T00:18:09.816Z</lastmod>
+<xhtml:link rel="alternate" hreflang="tr-TR" href="https://optona.tr/about?lang=tr" />
+<xhtml:link rel="alternate" hreflang="en-US" href="https://optona.tr/about?lang=en" />
+<xhtml:link rel="alternate" hreflang="de-DE" href="https://optona.tr/about?lang=de" />
+<lastmod>2026-03-22T00:24:36.400Z</lastmod>
 <changefreq>weekly</changefreq>
 <priority>0.8</priority>
 </url>
 <url>
 <loc>https://optona.tr/contact</loc>
-<lastmod>2026-03-22T00:18:09.816Z</lastmod>
+<xhtml:link rel="alternate" hreflang="tr-TR" href="https://optona.tr/contact?lang=tr" />
+<xhtml:link rel="alternate" hreflang="en-US" href="https://optona.tr/contact?lang=en" />
+<xhtml:link rel="alternate" hreflang="de-DE" href="https://optona.tr/contact?lang=de" />
+<lastmod>2026-03-22T00:24:36.400Z</lastmod>
 <changefreq>weekly</changefreq>
 <priority>0.8</priority>
 </url>

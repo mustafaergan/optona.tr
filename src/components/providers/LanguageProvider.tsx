@@ -27,6 +27,11 @@ function resolveInitialLanguage(): Language {
     return "tr";
   }
 
+  const langFromUrl = new URLSearchParams(window.location.search).get("lang");
+  if (langFromUrl === "tr" || langFromUrl === "en" || langFromUrl === "de") {
+    return langFromUrl;
+  }
+
   const stored = window.localStorage.getItem("optona-lang");
   if (stored === "tr" || stored === "en" || stored === "de") {
     return stored;
@@ -53,6 +58,10 @@ export default function LanguageProvider({ children }: { children: ReactNode }) 
   useEffect(() => {
     window.localStorage.setItem("optona-lang", language);
     document.documentElement.lang = language;
+
+    const url = new URL(window.location.href);
+    url.searchParams.set("lang", language);
+    window.history.replaceState(null, "", url.toString());
   }, [language]);
 
   const value = useMemo<LanguageContextValue>(

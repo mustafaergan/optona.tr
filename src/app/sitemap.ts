@@ -7,7 +7,6 @@ const BASE_URL = "https://optona.tr";
 export default function sitemap(): MetadataRoute.Sitemap {
   const routes = [
     "",
-    "/index",
     "/services",
     "/solutions",
     "/industries",
@@ -21,5 +20,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
     lastModified: new Date(),
     changeFrequency: "weekly",
     priority: route === "" ? 1 : 0.8,
+    alternates: {
+      languages: {
+        "tr-TR": `${BASE_URL}${route}?lang=tr`,
+        "en-US": `${BASE_URL}${route}?lang=en`,
+        "de-DE": `${BASE_URL}${route}?lang=de`,
+      },
+    },
   }));
 }
