@@ -823,6 +823,21 @@ h3 {
     grid-template-columns: 1fr;
   }
 }
+.form__contact {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  min-width: 0;
+  display: grid;
+  gap: 10px;
+}
+.form__contact legend {
+  padding: 0;
+  margin-bottom: 10px;
+  font-size: 13px;
+  font-family: var(--font-geist-mono), monospace;
+  color: color-mix(in srgb, var(--ink-dim) 80%, transparent);
+}
 .form__trap {
   position: absolute;
   left: -10000px;
@@ -861,6 +876,14 @@ h3 {
 .field input::placeholder,
 .field textarea::placeholder {
   color: color-mix(in srgb, var(--ink-dim) 60%, transparent);
+}
+.field input:-webkit-autofill,
+.field input:-webkit-autofill:hover,
+.field input:-webkit-autofill:focus {
+  -webkit-text-fill-color: var(--ink);
+  -webkit-box-shadow: 0 0 0 1000px var(--night-2) inset;
+  caret-color: var(--ink);
+  transition: background-color 9999s;
 }
 .field input:hover,
 .field textarea:hover {

@@ -16,8 +16,12 @@ function reply(int $code, array $body): never
 }
 
 // Yeni talep bildirimi. Gönderilemezse kayıt yine durur; hata log'a yazılır.
-function notify(int $id, string $name, string $email, string $company, string $message, string $lang): void
+function notify(int $id, string $name, string $email, string $phone, string $company, string $message, string $lang): void
 {
+    if (!function_exists('mail')) {
+        error_log("optona contact: mail() sunucuda kapali, bildirim gonderilmedi (#$id)");
+        return;
+    }
     $to = 'info@optona.tr';
     $from = 'noreply@optona.tr';
     $subject = '=?UTF-8?B?' . base64_encode("Yeni talep #$id: $name") . '?=';
@@ -25,7 +29,8 @@ function notify(int $id, string $name, string $email, string $company, string $m
         "optona.tr iletişim formundan yeni talep (#$id)",
         '',
         "Ad soyad : $name",
-        "E-posta  : $email",
+        'E-posta  : ' . ($email !== '' ? $email : '-'),
+        'Telefon  : ' . ($phone !== '' ? $phone : '-'),
         'Şirket   : ' . ($company !== '' ? $company : '-'),
         'Dil      : ' . strtoupper($lang),
         'Tarih    : ' . date('Y-m-d H:i'),
@@ -34,12 +39,12 @@ function notify(int $id, string $name, string $email, string $company, string $m
         $message,
         '',
         '--',
-        'Bu e-postayı yanıtlarsanız yanıt doğrudan talep sahibine gider.',
+        $email !== '' ? 'Bu e-postayı yanıtlarsanız yanıt doğrudan talep sahibine gider.' : 'Talep sahibi e-posta bırakmadı, telefonla dönün.',
         "Kayıt: phpMyAdmin > u1969788_optona > contact_requests (id $id)",
     ]);
     $headers = implode("\r\n", [
         'From: =?UTF-8?B?' . base64_encode('Optona Site') . "?= <$from>",
-        "Reply-To: $email",
+        ...($email !== '' ? ["Reply-To: $email"] : []),
         'MIME-Version: 1.0',
         'Content-Type: text/plain; charset=UTF-8',
         'Content-Transfer-Encoding: 8bit',
@@ -56,8 +61,8 @@ if (($_SERVER['REQUEST_METHOD'] ?? '') !== 'POST') {
 
 $lang = ($_POST['lang'] ?? 'tr') === 'en' ? 'en' : 'tr';
 $t = $lang === 'en'
-    ? ['name' => 'Write your name.', 'email' => 'Write a valid email address.', 'message' => 'Describe the task in at least a few words.', 'rate' => 'Too many requests. Please try again later.', 'server' => 'Could not save your request. Please email info@optona.tr.']
-    : ['name' => 'Adınızı yazın.', 'email' => 'Geçerli bir e-posta adresi yazın.', 'message' => 'İşi birkaç kelimeyle de olsa anlatın.', 'rate' => 'Çok fazla deneme yapıldı. Biraz sonra tekrar deneyin.', 'server' => 'Talebiniz kaydedilemedi. Lütfen info@optona.tr adresine yazın.'];
+    ? ['name' => 'Write your name.', 'email' => 'Write a valid email address.', 'phone' => 'Write a valid phone number.', 'contact' => 'Leave an email address or a phone number.', 'message' => 'Describe the task in at least a few words.', 'rate' => 'Too many requests. Please try again later.', 'server' => 'Could not save your request. Please email info@optona.tr.']
+    : ['name' => 'Adınızı yazın.', 'email' => 'Geçerli bir e-posta adresi yazın.', 'phone' => 'Geçerli bir telefon numarası yazın.', 'contact' => 'E-posta veya telefon numaranızı yazın.', 'message' => 'İşi birkaç kelimeyle de olsa anlatın.', 'rate' => 'Çok fazla deneme yapıldı. Biraz sonra tekrar deneyin.', 'server' => 'Talebiniz kaydedilemedi. Lütfen info@optona.tr adresine yazın.'];
 
 // Bot tuzağı: görünmeyen alan doluysa sessizce başarılı dön.
 if (trim((string)($_POST['website'] ?? '')) !== '') {
@@ -69,12 +74,19 @@ $clean = static fn(string $k, int $max): string =>
 
 $name = $clean('name', 120);
 $email = mb_substr(trim((string)($_POST['email'] ?? '')), 0, 190);
+$phone = $clean('phone', 40);
 $company = $clean('company', 160);
 $message = mb_substr(trim((string)($_POST['message'] ?? '')), 0, 4000);
 
 $errors = [];
 if (mb_strlen($name) < 2) $errors['name'] = $t['name'];
-if (!filter_var($email, FILTER_VALIDATE_EMAIL)) $errors['email'] = $t['email'];
+$phoneDigits = preg_replace('/\D+/', '', $phone) ?? '';
+if ($email === '' && $phone === '') {
+    $errors['email'] = $t['contact'];
+} else {
+    if ($email !== '' && !filter_var($email, FILTER_VALIDATE_EMAIL)) $errors['email'] = $t['email'];
+    if ($phone !== '' && (strlen($phoneDigits) < 10 || strlen($phoneDigits) > 15 || !preg_match('/^[+0-9 ()\-.]+$/', $phone))) $errors['phone'] = $t['phone'];
+}
 if (mb_strlen($message) < 10) $errors['message'] = $t['message'];
 if ($errors) reply(422, ['ok' => false, 'errors' => $errors]);
 
@@ -92,7 +104,8 @@ try {
         id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
         created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
         name VARCHAR(120) NOT NULL,
-        email VARCHAR(190) NOT NULL,
+        email VARCHAR(190) NULL,
+        phone VARCHAR(40) NULL,
         company VARCHAR(160) NULL,
         message TEXT NOT NULL,
         lang CHAR(2) NOT NULL DEFAULT 'tr',
@@ -103,15 +116,26 @@ try {
         INDEX (ip, created_at)
     ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci");
 
+    // Eski tabloyu güncelle: telefon sütunu, e-posta isteğe bağlı
+    $cols = $db->query("SHOW COLUMNS FROM contact_requests")->fetchAll(PDO::FETCH_COLUMN);
+    if (!in_array('phone', $cols, true)) {
+        $db->exec('ALTER TABLE contact_requests ADD COLUMN phone VARCHAR(40) NULL AFTER email, MODIFY email VARCHAR(190) NULL');
+    }
+
     $q = $db->prepare('SELECT COUNT(*) FROM contact_requests WHERE ip = ? AND created_at > NOW() - INTERVAL 1 HOUR');
     $q->execute([$ip]);
     if ((int)$q->fetchColumn() >= 5) reply(429, ['ok' => false, 'error' => $t['rate']]);
 
-    $ins = $db->prepare('INSERT INTO contact_requests (name, email, company, message, lang, ip, user_agent) VALUES (?, ?, ?, ?, ?, ?, ?)');
-    $ins->execute([$name, $email, $company !== '' ? $company : null, $message, $lang, $ip, $ua]);
+    $ins = $db->prepare('INSERT INTO contact_requests (name, email, phone, company, message, lang, ip, user_agent) VALUES (?, ?, ?, ?, ?, ?, ?, ?)');
+    $ins->execute([$name, $email !== '' ? $email : null, $phone !== '' ? $phone : null, $company !== '' ? $company : null, $message, $lang, $ip, $ua]);
     $id = (int)$db->lastInsertId();
 
-    notify($id, $name, $email, $company, $message, $lang);
+    // Bildirim hatası talebi asla bozmasın
+    try {
+        notify($id, $name, $email, $phone, $company, $message, $lang);
+    } catch (Throwable $e) {
+        error_log('optona contact bildirim: ' . $e->getMessage());
+    }
 
     reply(200, ['ok' => true]);
 } catch (Throwable $e) {
