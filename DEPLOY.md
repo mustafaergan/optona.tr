@@ -13,3 +13,5 @@ git add -A && git commit -m "..." && git push
 
 En geç 5 dakika içinde optona.tr güncellenir. `out/` commit edilmezse site değişmez.
 Sunucudan silinmesi gereken eski dosyalar otomatik silinmez.
+
+Deploy kaydı: sunucuda `~/logs/optona-deploy.log`.
