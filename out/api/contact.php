@@ -15,6 +15,40 @@ function reply(int $code, array $body): never
     exit;
 }
 
+// Yeni talep bildirimi. Gönderilemezse kayıt yine durur; hata log'a yazılır.
+function notify(int $id, string $name, string $email, string $company, string $message, string $lang): void
+{
+    $to = 'info@optona.tr';
+    $from = 'noreply@optona.tr';
+    $subject = '=?UTF-8?B?' . base64_encode("Yeni talep #$id: $name") . '?=';
+    $body = implode("\n", [
+        "optona.tr iletişim formundan yeni talep (#$id)",
+        '',
+        "Ad soyad : $name",
+        "E-posta  : $email",
+        'Şirket   : ' . ($company !== '' ? $company : '-'),
+        'Dil      : ' . strtoupper($lang),
+        'Tarih    : ' . date('Y-m-d H:i'),
+        '',
+        'Mesaj:',
+        $message,
+        '',
+        '--',
+        'Bu e-postayı yanıtlarsanız yanıt doğrudan talep sahibine gider.',
+        "Kayıt: phpMyAdmin > u1969788_optona > contact_requests (id $id)",
+    ]);
+    $headers = implode("\r\n", [
+        'From: =?UTF-8?B?' . base64_encode('Optona Site') . "?= <$from>",
+        "Reply-To: $email",
+        'MIME-Version: 1.0',
+        'Content-Type: text/plain; charset=UTF-8',
+        'Content-Transfer-Encoding: 8bit',
+    ]);
+    if (!@mail($to, $subject, $body, $headers, "-f$from")) {
+        error_log("optona contact: bildirim e-postasi gonderilemedi (#$id)");
+    }
+}
+
 if (($_SERVER['REQUEST_METHOD'] ?? '') !== 'POST') {
     header('Allow: POST');
     reply(405, ['ok' => false]);
@@ -75,6 +109,9 @@ try {
 
     $ins = $db->prepare('INSERT INTO contact_requests (name, email, company, message, lang, ip, user_agent) VALUES (?, ?, ?, ?, ?, ?, ?)');
     $ins->execute([$name, $email, $company !== '' ? $company : null, $message, $lang, $ip, $ua]);
+    $id = (int)$db->lastInsertId();
+
+    notify($id, $name, $email, $company, $message, $lang);
 
     reply(200, ['ok' => true]);
 } catch (Throwable $e) {
