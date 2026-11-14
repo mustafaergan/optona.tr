@@ -14,6 +14,12 @@ export function pageMetadata(lang: Lang): Metadata {
     title: d.meta.title,
     description: d.meta.description,
     applicationName: "Optona",
+    category: "technology",
+    keywords:
+      lang === "tr"
+        ? ["yapay zekâ ajanı", "yapay zeka otomasyon", "AI ajan", "fatura okuma", "belge işleme", "kurumsal yapay zeka", "LLM entegrasyonu", "şirket içi asistan"]
+        : ["AI agents", "AI automation", "document processing", "LLM integration", "enterprise AI assistant", "Turkey"],
+    formatDetection: { telephone: false, email: false, address: false },
     alternates: {
       canonical: path,
       languages: { "tr-TR": "/", "en-US": "/en/", "x-default": "/" },

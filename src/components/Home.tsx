@@ -7,14 +7,47 @@ export default function Home({ lang }: { lang: Lang }) {
   const mail = `mailto:${EMAIL}`;
   const year = new Date().getFullYear();
 
+  const pageUrl = lang === "tr" ? "https://optona.tr/" : "https://optona.tr/en/";
   const orgSchema = {
     "@context": "https://schema.org",
-    "@type": "Organization",
-    name: "Optona",
-    url: "https://optona.tr",
-    email: EMAIL,
-    description: d.meta.description,
-    areaServed: "TR",
+    "@graph": [
+      {
+        "@type": "ProfessionalService",
+        "@id": "https://optona.tr/#org",
+        name: "Optona",
+        url: "https://optona.tr/",
+        logo: "https://optona.tr/icon.svg",
+        email: EMAIL,
+        description: d.meta.description,
+        areaServed: { "@type": "Country", name: "Türkiye" },
+        knowsAbout: ["Yapay zekâ", "AI agents", "LLM", "RAG", "İş süreci otomasyonu", "Belge işleme"],
+        hasOfferCatalog: {
+          "@type": "OfferCatalog",
+          name: d.work.h2,
+          itemListElement: d.work.cards.map((c) => ({
+            "@type": "Offer",
+            itemOffered: { "@type": "Service", name: c.title, description: c.body },
+          })),
+        },
+      },
+      {
+        "@type": "WebSite",
+        "@id": "https://optona.tr/#website",
+        url: "https://optona.tr/",
+        name: "Optona",
+        publisher: { "@id": "https://optona.tr/#org" },
+        inLanguage: ["tr-TR", "en-US"],
+      },
+      {
+        "@type": "WebPage",
+        url: pageUrl,
+        name: d.meta.title,
+        description: d.meta.description,
+        inLanguage: lang === "tr" ? "tr-TR" : "en-US",
+        isPartOf: { "@id": "https://optona.tr/#website" },
+        about: { "@id": "https://optona.tr/#org" },
+      },
+    ],
   };
 
   return (
