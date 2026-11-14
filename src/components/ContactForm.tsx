@@ -3,7 +3,7 @@
 import { useState, type FormEvent } from "react";
 import type { Dict, Lang } from "@/content";
 
-type Errors = Partial<Record<"name" | "email" | "message", string>>;
+type Errors = Partial<Record<"name" | "email" | "phone" | "message", string>>;
 type State = "idle" | "sending" | "sent";
 
 export default function ContactForm({ f, lang }: { f: Dict["close"]["form"]; lang: Lang }) {
@@ -55,20 +55,28 @@ export default function ContactForm({ f, lang }: { f: Dict["close"]["form"]; lan
         </label>
       </div>
 
+      <Field id="cf-message" label={f.message} error={errors.message}>
+        <textarea id="cf-message" name="message" rows={3} required maxLength={4000} placeholder={f.messageHint} aria-invalid={!!errors.message} aria-describedby={errors.message ? "cf-message-err" : undefined} />
+      </Field>
       <div className="form__row">
         <Field id="cf-name" label={f.name} error={errors.name}>
           <input id="cf-name" name="name" autoComplete="name" required maxLength={120} aria-invalid={!!errors.name} aria-describedby={errors.name ? "cf-name-err" : undefined} />
         </Field>
-        <Field id="cf-email" label={f.email} error={errors.email}>
-          <input id="cf-email" name="email" type="email" autoComplete="email" required maxLength={190} aria-invalid={!!errors.email} aria-describedby={errors.email ? "cf-email-err" : undefined} />
+        <Field id="cf-company" label={f.company} note={f.optional}>
+          <input id="cf-company" name="company" autoComplete="organization" maxLength={160} />
         </Field>
       </div>
-      <Field id="cf-company" label={f.company} note={f.optional}>
-        <input id="cf-company" name="company" autoComplete="organization" maxLength={160} />
-      </Field>
-      <Field id="cf-message" label={f.message} error={errors.message}>
-        <textarea id="cf-message" name="message" rows={3} required maxLength={4000} placeholder={f.messageHint} aria-invalid={!!errors.message} aria-describedby={errors.message ? "cf-message-err" : undefined} />
-      </Field>
+      <fieldset className="form__contact" aria-describedby="cf-contact-note">
+        <legend id="cf-contact-note">{f.contactNote}</legend>
+        <div className="form__row">
+          <Field id="cf-email" label={f.email} error={errors.email}>
+            <input id="cf-email" name="email" type="email" autoComplete="email" maxLength={190} aria-invalid={!!errors.email} aria-describedby={errors.email ? "cf-email-err" : undefined} />
+          </Field>
+          <Field id="cf-phone" label={f.phone} error={errors.phone}>
+            <input id="cf-phone" name="phone" type="tel" inputMode="tel" autoComplete="tel" maxLength={40} aria-invalid={!!errors.phone} aria-describedby={errors.phone ? "cf-phone-err" : undefined} />
+          </Field>
+        </div>
+      </fieldset>
 
       <div className="form__foot">
         <button type="submit" className="btn" disabled={state === "sending"}>

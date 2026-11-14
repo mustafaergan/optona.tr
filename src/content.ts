@@ -104,6 +104,8 @@ const tr = {
     form: {
       name: "Ad soyad",
       email: "E-posta",
+      phone: "Telefon",
+      contactNote: "E-posta veya telefondan en az birini yazın.",
       company: "Şirket",
       optional: "isteğe bağlı",
       message: "Hangi işi devretmek istiyorsunuz?",
@@ -224,6 +226,8 @@ const en: Dict = {
     form: {
       name: "Full name",
       email: "Email",
+      phone: "Phone",
+      contactNote: "Leave at least an email address or a phone number.",
       company: "Company",
       optional: "optional",
       message: "Which task do you want to hand off?",
