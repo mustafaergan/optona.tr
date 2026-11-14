@@ -1,0 +1,5 @@
+---
+deployment:
+  tasks:
+    - export DEPLOYPATH=/home/u1969788/optona.tr/
+    - /bin/cp -R out/. $DEPLOYPATH
