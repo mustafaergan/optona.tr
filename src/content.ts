@@ -6,7 +6,7 @@ const tr = {
   meta: {
     title: "Optona | Şirketler için yapay zekâ ajanları ve otomasyon",
     description:
-      "Tekrar eden işleri sistemlerinize bağlı yapay zekâ ajanlarına devrediyoruz. Belge okuma, e-posta, teklif ve destek. İlk çalışan sürüm iki haftada.",
+      "Tekrar eden işleri sistemlerinize bağlı yapay zekâ ajanlarına devrediyoruz. Belge okuma, e-posta, teklif ve destek. İlk çalışan sürüm çok kısa sürede.",
   },
   nav: { work: "Ne yapıyoruz", process: "Süreç", cta: "Görüşme ayarla", switch: "EN", switchHref: "/en/" },
   hero: {
@@ -14,7 +14,7 @@ const tr = {
     h1a: "Şirketler için",
     h1b: "yapay zekâ ajanları",
     lead: "E-posta, belge, teklif ve destek gibi tekrar eden işleri, kullandığınız sistemlere bağlı yapay zekâ ajanlarına devrediyoruz.",
-    fact: "İlk çalışan sürüm iki haftada.",
+    fact: "İlk çalışan sürüm çok kısa sürede.",
     primary: "Görüşme ayarla",
     secondary: "İşleri gör",
   },
@@ -90,7 +90,7 @@ const tr = {
     h2: "Görüşmeden canlıya üç adım",
     steps: [
       { n: "1", t: "30 dakikalık görüşme", b: "En çok zaman alan işi birlikte seçiyoruz." },
-      { n: "2", t: "İki haftada prototip", b: "Kendi verinizle çalışan ilk sürümü gösteriyoruz." },
+      { n: "2", t: "Kısa sürede prototip", b: "Kendi verinizle çalışan ilk sürümü gösteriyoruz." },
       { n: "3", t: "Canlıya alma", b: "Sistemlerinize bağlıyor, sonuçları birlikte ölçüyoruz." },
     ],
     stackLabel: "Modeller ve altyapı",
@@ -126,7 +126,7 @@ const en: Dict = {
   meta: {
     title: "Optona | AI agents and automation for companies",
     description:
-      "We hand repetitive work to AI agents connected to your systems: documents, email, quotes and support. First working version in two weeks.",
+      "We hand repetitive work to AI agents connected to your systems: documents, email, quotes and support. First working version in a very short time.",
   },
   nav: { work: "What we do", process: "Process", cta: "Book a call", switch: "TR", switchHref: "/" },
   hero: {
@@ -134,7 +134,7 @@ const en: Dict = {
     h1a: "AI agents",
     h1b: "for companies",
     lead: "We hand repetitive work like email, documents, quotes and support to AI agents connected to the systems you already use.",
-    fact: "First working version in two weeks.",
+    fact: "First working version in a very short time.",
     primary: "Book a call",
     secondary: "See the work",
   },
@@ -210,7 +210,7 @@ const en: Dict = {
     h2: "Three steps from call to live",
     steps: [
       { n: "1", t: "A 30-minute call", b: "We pick the task that takes the most time." },
-      { n: "2", t: "Prototype in two weeks", b: "A first version running on your own data." },
+      { n: "2", t: "Prototype in a short time", b: "A first version running on your own data." },
       { n: "3", t: "Go live", b: "Connected to your systems, results measured together." },
     ],
     stackLabel: "Models and infrastructure",
