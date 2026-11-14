@@ -1,3 +1,32 @@
-# Eski sayfalar tek sayfaya taşındı
 RewriteEngine On
+
+# Tek adres: https://optona.tr (http ve www yönlendirilir; SSL yenilemesi için .well-known hariç)
+RewriteCond %{REQUEST_URI} !^/\.well-known/
+RewriteCond %{HTTPS} !=on [OR]
+RewriteCond %{HTTP_HOST} ^www\. [NC]
+RewriteRule ^(.*)$ https://optona.tr/$1 [R=301,L]
+
+# Eski sayfalar tek sayfaya taşındı
 RewriteRule ^(about|contact|services|solutions|industries|success-stories|index)(/.*)?$ / [R=301,L]
+
+# Önbellek: build dosyaları değişmez, sayfalar her seferinde kontrol edilir
+<IfModule mod_headers.c>
+  <FilesMatch "\.(js|css|woff2|png|svg|ico)$">
+    Header set Cache-Control "public, max-age=31536000, immutable"
+  </FilesMatch>
+  <FilesMatch "\.(html|xml|txt)$">
+    Header set Cache-Control "public, max-age=0, must-revalidate"
+  </FilesMatch>
+  Header always set X-Content-Type-Options "nosniff"
+  Header always set Referrer-Policy "strict-origin-when-cross-origin"
+</IfModule>
+
+# Next.js uzantısız üretiyor: paylaşım görselleri ve apple ikonu PNG'dir
+<FilesMatch "^(opengraph-image-[a-z0-9]+|apple-icon)$">
+  ForceType image/png
+</FilesMatch>
+<FilesMatch "\.webmanifest$">
+  ForceType application/manifest+json
+</FilesMatch>
+
+ErrorDocument 404 /404.html
