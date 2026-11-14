@@ -1,4 +1,5 @@
 import AgentDemo from "@/components/AgentDemo";
+import ContactForm from "@/components/ContactForm";
 import { dict, EMAIL, type Lang } from "@/content";
 
 export default function Home({ lang }: { lang: Lang }) {
@@ -42,7 +43,7 @@ export default function Home({ lang }: { lang: Lang }) {
             <a className="link link--lang" href={d.nav.switchHref} hrefLang={lang === "tr" ? "en" : "tr"}>
               {d.nav.switch}
             </a>
-            <a className="btn btn--sm" href={mail}>
+            <a className="btn btn--sm" href="#iletisim">
               {d.nav.cta}
             </a>
           </nav>
@@ -61,7 +62,7 @@ export default function Home({ lang }: { lang: Lang }) {
               <p className="lead">{d.hero.lead}</p>
               <p className="fact">{d.hero.fact}</p>
               <div className="actions">
-                <a className="btn" href={mail}>
+                <a className="btn" href="#iletisim">
                   {d.hero.primary}
                 </a>
                 <a className="btn btn--ghost" href="#isler">
@@ -116,15 +117,15 @@ export default function Home({ lang }: { lang: Lang }) {
         </section>
       </main>
 
-      <footer className="closing">
+      <footer className="closing" id="iletisim">
         <div className="wrap closing__in">
+          <div className="closing__grid">
           <div className="closing__top">
             <h2 className="closing__h">
               {d.close.h2a} <span className="muted">{d.close.h2b}</span>
             </h2>
-            <a className="btn btn--lg" href={mail}>
-              {d.close.cta}
-            </a>
+          </div>
+          <ContactForm f={d.close.form} lang={lang} />
           </div>
           <div className="closing__legal">
             <span className="mark mark--sm">
