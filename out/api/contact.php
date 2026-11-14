@@ -1,6 +1,6 @@
 <?php
 // optona.tr iletişim formu: talebi MySQL'e kaydeder.
-// Bağlantı ayarları web kökünün dışında: ~/.optona/db.php
+// Bağlantı ayarları web kökünün dışında: ~/.optona/db.php ve ~/.optona/smtp.php
 
 declare(strict_types=1);
 
@@ -15,17 +15,21 @@ function reply(int $code, array $body): never
     exit;
 }
 
-// Yeni talep bildirimi. Gönderilemezse kayıt yine durur; hata log'a yazılır.
+// Yeni talep bildirimi: Kurumsal E-posta SMTP'si (info@optona.tr) ile gönderilir.
+// Sunucuda mail() kapalı. Ayar ve şifre: ~/.optona/smtp.php (repoda yok).
+// Gönderilemezse talep yine kayıtlıdır; hata log'a yazılır.
 function notify(int $id, string $name, string $email, string $phone, string $company, string $message, string $lang): void
 {
-    if (!function_exists('mail')) {
-        error_log("optona contact: mail() sunucuda kapali, bildirim gonderilmedi (#$id)");
+    $file = dirname(__DIR__, 2) . '/.optona/smtp.php';
+    $cfg = is_file($file) ? require $file : [];
+    if (empty($cfg['pass'])) {
+        error_log("optona contact: SMTP sifresi ~/.optona/smtp.php icinde yok, bildirim gonderilmedi (#$id)");
         return;
     }
-    $to = 'info@optona.tr';
-    $from = 'noreply@optona.tr';
-    $subject = '=?UTF-8?B?' . base64_encode("Yeni talep #$id: $name") . '?=';
-    $body = implode("\n", [
+    $user = $cfg['user'] ?? 'info@optona.tr';
+    $to = $cfg['to'] ?? $user;
+
+    $body = implode("\r\n", [
         "optona.tr iletişim formundan yeni talep (#$id)",
         '',
         "Ad soyad : $name",
@@ -36,21 +40,64 @@ function notify(int $id, string $name, string $email, string $phone, string $com
         'Tarih    : ' . date('Y-m-d H:i'),
         '',
         'Mesaj:',
-        $message,
+        str_replace(["\r\n", "\r"], "\n", $message),
         '',
         '--',
         $email !== '' ? 'Bu e-postayı yanıtlarsanız yanıt doğrudan talep sahibine gider.' : 'Talep sahibi e-posta bırakmadı, telefonla dönün.',
         "Kayıt: phpMyAdmin > u1969788_optona > contact_requests (id $id)",
     ]);
-    $headers = implode("\r\n", [
-        'From: =?UTF-8?B?' . base64_encode('Optona Site') . "?= <$from>",
+    $enc = static fn(string $t): string => '=?UTF-8?B?' . base64_encode($t) . '?=';
+    $data = implode("\r\n", [
+        'Date: ' . date('r'),
+        'From: ' . $enc('Optona Site') . " <$user>",
+        "To: <$to>",
         ...($email !== '' ? ["Reply-To: $email"] : []),
+        'Subject: ' . $enc("Yeni talep #$id: $name"),
+        'Message-ID: <' . bin2hex(random_bytes(12)) . '@optona.tr>',
         'MIME-Version: 1.0',
         'Content-Type: text/plain; charset=UTF-8',
-        'Content-Transfer-Encoding: 8bit',
+        'Content-Transfer-Encoding: base64',
+        '',
+        rtrim(chunk_split(base64_encode($body), 76, "\r\n")),
     ]);
-    if (!@mail($to, $subject, $body, $headers, "-f$from")) {
-        error_log("optona contact: bildirim e-postasi gonderilemedi (#$id)");
+
+    smtp_send($cfg['host'] ?? 'mail.kurumsaleposta.com', (int)($cfg['port'] ?? 465), $user, (string)$cfg['pass'], $user, $to, $data);
+}
+
+// Basit SMTP istemcisi (SSL, AUTH LOGIN). Hata olursa istisna fırlatır.
+function smtp_send(string $host, int $port, string $user, string $pass, string $from, string $to, string $data): void
+{
+    $s = @stream_socket_client("ssl://$host:$port", $errno, $errstr, 10);
+    if (!$s) throw new RuntimeException("SMTP baglanti hatasi: $errstr");
+    stream_set_timeout($s, 15);
+    $read = static function () use ($s): string {
+        $out = '';
+        while (($line = fgets($s, 1024)) !== false) {
+            $out .= $line;
+            if (strlen($line) < 4 || $line[3] === ' ') break;
+        }
+        return $out;
+    };
+    $cmd = static function (?string $line, int $expect) use ($s, $read): void {
+        if ($line !== null) fwrite($s, $line . "\r\n");
+        $r = $read();
+        if ((int)substr($r, 0, 3) !== $expect) {
+            throw new RuntimeException('SMTP beklenmeyen yanit: ' . trim($r));
+        }
+    };
+    try {
+        $cmd(null, 220);
+        $cmd('EHLO optona.tr', 250);
+        $cmd('AUTH LOGIN', 334);
+        $cmd(base64_encode($user), 334);
+        $cmd(base64_encode($pass), 235);
+        $cmd("MAIL FROM:<$from>", 250);
+        $cmd("RCPT TO:<$to>", 250);
+        $cmd('DATA', 354);
+        $cmd(preg_replace('/^\./m', '..', $data) . "\r\n.", 250);
+        fwrite($s, "QUIT\r\n");
+    } finally {
+        fclose($s);
     }
 }
 
