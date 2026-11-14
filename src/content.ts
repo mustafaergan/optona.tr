@@ -99,7 +99,7 @@ const tr = {
   },
   close: {
     h2a: "Bir işi anlatın.",
-    h2b: "İki haftada çalışırken görün.",
+    h2b: "Çok kısa bir süre içinde elinizde.",
     cta: "E-posta gönder",
     legal: "Tüm hakları saklıdır.",
     country: "Türkiye",
@@ -206,7 +206,7 @@ const en: Dict = {
   },
   close: {
     h2a: "Tell us about one task.",
-    h2b: "See it working in two weeks.",
+    h2b: "Have it working in no time.",
     cta: "Send an email",
     legal: "All rights reserved.",
     country: "Türkiye",
