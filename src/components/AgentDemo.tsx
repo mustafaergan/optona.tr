@@ -1,26 +1,18 @@
 "use client";
 
-import { useEffect, useState, useSyncExternalStore } from "react";
+import { useEffect, useState } from "react";
 import type { Dict } from "@/content";
 
 const STEP_MS = 650;
-const RM = "(prefers-reduced-motion: reduce)";
-const subscribe = (cb: () => void) => {
-  const m = window.matchMedia(RM);
-  m.addEventListener("change", cb);
-  return () => m.removeEventListener("change", cb);
-};
 
+// Demo sayfa açılınca kendiliğinden başlar ve sürekli döner; düğme yalnızca durdurur/başlatır.
 export default function AgentDemo({ d }: { d: Dict["demo"] }) {
   const [item, setItem] = useState(0);
-  const [rawStep, setStep] = useState(0);
-  const [userPaused, setPaused] = useState(false);
-  const reduced = useSyncExternalStore(subscribe, () => window.matchMedia(RM).matches, () => false);
-  const paused = userPaused || reduced;
+  const [step, setStep] = useState(0);
+  const [paused, setPaused] = useState(false);
 
   const current = d.items[item];
   const total = current.steps.length + 1; // steps + done line
-  const step = reduced ? total : rawStep;
   const finished = step >= total;
 
   useEffect(() => {
