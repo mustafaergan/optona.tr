@@ -1,0 +1,16 @@
+{
+  "name": "Minik Hayvanlar",
+  "short_name": "Minik Hayvanlar",
+  "description": "Bebekler için ışık, nota ve hayvan sesleri",
+  "start_url": "./",
+  "scope": "./",
+  "display": "fullscreen",
+  "orientation": "any",
+  "background_color": "#000000",
+  "theme_color": "#000000",
+  "icons": [
+    { "src": "icons/icon-192.webp", "type": "image/webp", "sizes": "192x192", "purpose": "any" },
+    { "src": "icons/icon-512.webp", "type": "image/webp", "sizes": "512x512", "purpose": "any" },
+    { "src": "simge.png", "type": "image/png", "sizes": "1024x1024", "purpose": "any" }
+  ]
+}
